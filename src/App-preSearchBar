@@ -14,14 +14,6 @@ class App extends Component {
       searchTextValue: ""
     };
   }
-
-  getFilteredUserList() {
-    return this.props.users.filter((user) => {
-      const fullName = `${user.firstName} ${user.lastName}`;
-      return fullName.toLowerCase().indexOf(this.state.searchTextValue.toLowerCase()) !== -1;
-    });
-  }
-
   render() {
     return (
       <div className="App">
@@ -42,8 +34,8 @@ class App extends Component {
             searchTextValue: value
           });
         }} />
-<ListOfUsers users={this.getFilteredUserList()} onUserSelect={(selectedUser) => {
-      //  <ListOfUsers users={this.props.users} onUserSelect={(selectedUser) => {  // on userUserSelect is a function
+
+        <ListOfUsers users={this.props.users} onUserSelect={(selectedUser) => {  // on userUserSelect is a function
         // console.log("user selected in APP.js but returned from LOU:", selectedUser);
           this.setState({
             selectedUserList: [
