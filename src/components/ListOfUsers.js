@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import UserDetail from "./UserDetail";
 
 function ListOfUsers(props) {
-console.log("lou ", props)
+// console.log("lou ", props)
   return (
     <div>
       {props.users.map((user, key) => {
@@ -11,7 +11,8 @@ console.log("lou ", props)
           <UserDetail  // sends/gets data from User Detail for each map
             user={user}
             onSelect={() => {
-              console.log("user was clikced ")
+              console.log("user X was clicked in ListofUsers ", user);
+              props.onUserSelect(user);
             }}
             key={key} />);
       })}

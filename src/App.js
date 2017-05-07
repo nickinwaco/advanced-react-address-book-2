@@ -4,6 +4,7 @@ import "./App.css";
 import PropTypes from "prop-types";
 import ListOfUsers from "./components/ListOfUsers.js";
 import UserDetail from "./components/UserDetail.js";
+import SearchBar from "./components/SearchBar";
 
 class App extends Component {
   constructor(props) {
@@ -25,11 +26,21 @@ class App extends Component {
         <h2>
         Available users
         </h2>
-        <ListOfUsers users={this.props.users} />
+        <SearchBar />
+        <ListOfUsers users={this.props.users} onUserSelect={(selectedUser) => {  // on userUserSelect is a function
+          // console.log("user selected in APP.js but returned from LOU:", selectedUser);
+          this.setState({
+            selectedUserList: [
+              ...this.state.selectedUserList,
+              selectedUser
+            ]
+
+          }); console.log(this.state.selectedUserList, "from APps.js")
+        }} />
         <h2>
          Selected users
          </h2>
-        <ListOfUsers users={[]} />
+        <ListOfUsers users={this.state.selectedUserList} onUserSelect={() => {}} />
       </div>
     );
 
