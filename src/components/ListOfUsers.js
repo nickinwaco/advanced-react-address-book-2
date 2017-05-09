@@ -14,6 +14,10 @@ function ListOfUsers(props) {
               console.log("user X was clicked in ListofUsers ", user);
               props.onUserSelect(user);
             }}
+            onDelete={() => {
+              console.log("what is props.user here:", user)
+              props.onUserDelete();
+            }}
             key={key} />);
       })}
     </div>

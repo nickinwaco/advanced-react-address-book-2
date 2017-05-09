@@ -11,7 +11,8 @@ class App extends Component {
     super(props);
     this.state = {
       selectedUserList: [],
-      searchTextValue: ""
+      searchTextValue: "",
+      reset: false
     };
   }
 
@@ -19,8 +20,36 @@ class App extends Component {
     return this.props.users.filter((user) => {
       const fullName = `${user.firstName} ${user.lastName}`;
       return fullName.toLowerCase().indexOf(this.state.searchTextValue.toLowerCase()) !== -1;
+    });  // end of arry filter list feature
+  }  // end of getFilteredUserList function
+
+  handleSearchBarChange(value) {
+    this.setState({
+      searchTextValue: value
+    }); // end of state
+  } // end of handleSearchBarChange function
+
+  handleSelectUser(user) {
+    this.setState({
+      selectedUserList: [...this.state.selectedUserList,user]
     });
   }
+
+  handleDeleteUser() {
+    this.setState({
+      selectedUserList: []
+    });
+  }
+
+  handleResetUsers(){
+    console.log("htest")
+    this.setState({
+      searchTextValue: " ",
+      selectedUserList: []
+
+    });
+  }
+
 
   render() {
     return (
@@ -35,14 +64,9 @@ class App extends Component {
         <h2>
         Available users
         </h2>
+        <SearchBar onSearchQueryChange={this.handleSearchBarChange.bind(this)} />
 
-        <SearchBar onChange={(value) => {
-          console.log("value retrieved", value);
-          this.setState({
-            searchTextValue: value
-          });
-        }} />
-<ListOfUsers users={this.getFilteredUserList()} onUserSelect={(selectedUser) => {
+        <ListOfUsers users={this.getFilteredUserList()} onUserSelect={(selectedUser) => {
       //  <ListOfUsers users={this.props.users} onUserSelect={(selectedUser) => {  // on userUserSelect is a function
         // console.log("user selected in APP.js but returned from LOU:", selectedUser);
           this.setState({
@@ -56,7 +80,15 @@ class App extends Component {
         <h2>
          Selected users
          </h2>
-        <ListOfUsers users={this.state.selectedUserList} onUserSelect={() => {}} />
+        <ListOfUsers users={this.state.selectedUserList} onUserSelect={() => {}} onUserDelete={(selectedUser) => {
+          this.setState({
+            selectedUserList: [] // must hand it "empty array"
+           });
+           console.log(this.state.selectedUserList, "from APp.js delete")
+           console.log(this.state, "just state from app.js")
+        }} />
+        <button onClick={this.handleResetUsers.bind(this)} > Reset </button>
+
       </div>
     );
 
@@ -70,3 +102,11 @@ App.propTypes = {
 };
 
 export default App;
+
+//  **MOVED this component in exchange for onSearchQueryChange
+// <SearchBar onChange={(value) => {
+//     console.log("value retrieved", value);
+//     this.setState({
+//       searchTextValue: value
+//     });
+//   }} />

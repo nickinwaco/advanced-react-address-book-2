@@ -10,12 +10,16 @@ function UserDetail(props) {
       <button onClick={props.onSelect}>
     Select
     </button>
+      <button onClick={props.onDelete}>
+        Delete
+  </button>
     </div>
   );
 }
 
 UserDetail.propTypes = {
   onSelect: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   user: PropTypes.object  // is received INBNOUND from LOU not APP.js
 };
 
